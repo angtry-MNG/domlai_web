@@ -36,7 +36,14 @@
         <p><strong>Order Total: ${{ (cartTotal + 2).toFixed(2) }}</strong></p>
       </div>
 
-      <button class="checkout-button" onclick="window.location.href='checkout.html'">Check Out</button>
+      <!-- <button class="checkout-button" onclick="window.location.href='checkout.html'">Check Out</button> -->
+      <button 
+      class="checkout-button" 
+      :disabled="cart.length === 0" 
+      @click="goToCheckout">
+      Check Out
+    </button>
+    
 
     </div>
   </div>
@@ -51,6 +58,13 @@
         };
       },
       methods: {
+        goToCheckout() {
+    if (this.cart.length > 0) {
+      window.location.href = 'checkout.html'; // Navigate to the checkout page
+    } else {
+      alert('Your cart is empty!'); // Optional: Inform the user
+    }
+  },
         increaseQuantity(item) {
           item.quantity++;
           this.saveCart();
