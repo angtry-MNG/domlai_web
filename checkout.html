@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app" class="app">
+    <div class="categories">
+      <button onclick="window.history.back()">Back</button>
+    </div>
+    <div class="header">
+      <h1>Address</h1>
+    </div>
+
+    <form @submit.prevent="confirmOrder">
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" v-model="checkoutInfo.fullName" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Tel</label>
+        <input type="tel" id="phone" v-model="checkoutInfo.phone" required>
+      </div>
+      <div class="form-group">
+        <label for="city">City</label>
+        <input type="text" id="city" v-model="checkoutInfo.city" required>
+      </div>
+      <div class="form-group">
+        <label for="district">District</label>
+        <input type="text" id="district" v-model="checkoutInfo.district" required>
+      </div>
+      <div class="form-group">
+        <label for="note">Note</label>
+        <textarea id="note" v-model="checkoutInfo.note"></textarea>
+      </div>
+
+      <button type="submit" class="confirm-button">Confirm</button>
+    </form>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          checkoutInfo: {
+            fullName: '',
+            phone: '',
+            city: '',
+            district: '',
+            note: ''
+          },
+          cart: JSON.parse(localStorage.getItem('cart')) || [] // Load cart from localStorage
+        };
+      },
+      
+      methods: {
+  async confirmOrder() {
+    // Prepare the message
+    const message = `
+🛒 **New Order**
+- **Name**: ${this.checkoutInfo.fullName}
+- **Phone**: ${this.checkoutInfo.phone}
+- **City**: ${this.checkoutInfo.city}
+- **District**: ${this.checkoutInfo.district}
+- **Note**: ${this.checkoutInfo.note}
+- **Order Summary**:
+${this.cart.map(item => `   • ${item.name} x ${item.quantity} = $${(item.price * item.quantity).toFixed(2)}`).join('\n')}
+- **Total**: $${(this.cartTotal + 2).toFixed(2)}
+    `;
+
+    // Send to Telegram
+    const telegramToken = '7894066386:AAEhcy93zkBuKxyaBpjj0XD-UztL3lHaCBY'; // Replace with your bot's token
+    const chatId = '-4673163047'; // Replace with your group's chat ID
+    const url = `https://api.telegram.org/bot${telegramToken}/sendMessage`;
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+          parse_mode: 'Markdown'
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send the message');
+      }
+
+      alert('Order sent successfully!');
+      localStorage.removeItem('cart'); // Clear the cart
+      window.location.href = 'main.html'; // Redirect back to the cart or home page
+    } catch (error) {
+      alert('Failed to send order. Please try again.');
+      console.error(error);
+    }
+  }
+}
+
+   ,   
+      computed: {
+        cartTotal() {
+          return this.cart.reduce((total, item) => total + item.price * item.quantity, 0);
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
