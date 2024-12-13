@@ -1,36 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product Detail</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
+<link rel="stylesheet" href="styles.css">
 <body>
-  <div class="app">
+  <div id="app" class="app">
     <div class="header">
       <h1>Product Detail</h1>
     </div>
     <div class="categories">
       <button onclick="window.history.back()">Back</button>
+      <button @click="addToCart(product)">Add to Cart</button>
     </div>
-    <div class="product-detail">
-      <img src="https://via.placeholder.com/300" alt="Product Image">
-      <div class="product-title">Kramar Keychain</div>
-      <p>Handmade keychain with a touch of Cambodian culture.</p>
+    <div v-if="product">
+      <div class="product-detail">
+        <img :src="product.image" alt="Product Image">
+        <div class="product-title">{{ product.name }}</div>
+        <p>{{ product.description }}</p>
+        <div class="product-price">Price: ${{ product.price.toFixed(2) }}</div>
+      </div>
     </div>
-    <div class="reviews">
-      <h3>Reviews</h3>
-      <div class="review-item">
-        <strong>Ry Sothita:</strong> Best price and fast delivery! ⭐⭐⭐⭐⭐
-      </div>
-      <div class="review-item">
-        <strong>Leapheng Hear:</strong> Loving the service and quality! ⭐⭐⭐⭐⭐
-      </div>
-      <div class="review-item">
-        <strong>Chea Angtry:</strong> High-quality keychain with affordable price. ⭐⭐⭐⭐⭐
-      </div>
+    <div v-else>
+      <p>Loading product details...</p>
     </div>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          products: [
+            { id: 1, name: 'Fish Keychain', description: 'A beautiful fish-shaped keychain.Cambodians have developed a unique Cambodian culture and belief system from the syncreticism of indigenous animistic beliefs and the Indian religions.', price: 1.00, image: './img/fish_keychain.jpg' },
+            { id: 2, name: 'Hand Bag', description: 'A stylish and durable hand bag.', price: 5.00, image: './img/handbag.jpg' },
+            { id: 3, name: 'Krama', description: 'Traditional Cambodian scarf.', price: 1.00, image: './img/kramar.jpg' },
+            { id: 4, name: 'Cup Holder', description: 'Eco-friendly cup holder.', price: 1.00, image: './img/cap.jpg' },
+            { id: 5, name: 'Cross Body Bag', description: 'Trendy cross body bag.', price: 6.00, image: './img/bag.jpg' },
+          ],
+          product: null // Placeholder for the current product
+        };
+      },
+      mounted() {
+        // Extract the product ID from the URL
+        const params = new URLSearchParams(window.location.search);
+        const productId = parseInt(params.get('id'));
+
+        // Find the product by ID
+        this.product = this.products.find(item => item.id === productId);
+      }
+    }).mount('#app');
+  </script>
 </body>
-</html>
