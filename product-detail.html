@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Detail</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+    .app {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 10px;
+      background-color: #fff;
+    }
+    .header {
+      text-align: center;
+      padding: 10px;
+      background-color: #f04e4e;
+      color: #fff;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .categories {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .categories button {
+      padding: 10px;
+      background-color: #f04e4e;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .product-detail img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .product-title {
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .reviews {
+      margin-top: 20px;
+    }
+    .review-item {
+      background-color: #f9f9f9;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="header">
+      <h1>Product Detail</h1>
+    </div>
+    <div class="categories">
+      <button onclick="window.history.back()">Back</button>
+    </div>
+    <div class="product-detail">
+      <img src="https://via.placeholder.com/300" alt="Product Image">
+      <div class="product-title">Kramar Keychain</div>
+      <p>Handmade keychain with a touch of Cambodian culture.</p>
+    </div>
+    <div class="reviews">
+      <h3>Reviews</h3>
+      <div class="review-item">
+        <strong>Ry Sothita:</strong> Best price and fast delivery! ⭐⭐⭐⭐⭐
+      </div>
+      <div class="review-item">
+        <strong>Leapheng Hear:</strong> Loving the service and quality! ⭐⭐⭐⭐⭐
+      </div>
+      <div class="review-item">
+        <strong>Chea Angtry:</strong> High-quality keychain with affordable price. ⭐⭐⭐⭐⭐
+      </div>
+    </div>
+  </div>
+</body>
+</html>

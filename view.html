@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Commerce Mobile Interface</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+    .app {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 10px;
+      background-color: #fff;
+    }
+    .header {
+      text-align: center;
+      padding: 10px;
+      background-color: #f04e4e;
+      color: #fff;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .search {
+      display: flex;
+      margin: 10px 0;
+    }
+    .search input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px 0 0 5px;
+    }
+    .search button {
+      padding: 10px;
+      background-color: #f04e4e;
+      color: #fff;
+      border: none;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+    }
+    .categories {
+      display: flex;
+      overflow-x: auto;
+      margin: 10px 0;
+    }
+    .categories button {
+      margin: 0 5px;
+      padding: 10px;
+      background-color: #f04e4e;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .product {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #fff;
+      margin: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .product img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .product-name {
+      font-size: 14px;
+      font-weight: bold;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .product-price {
+      color: #888;
+      margin: 5px 0;
+    }
+    .product button {
+      padding: 8px 12px;
+      background-color: #f04e4e;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .cart {
+      margin-top: 20px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .cart h3 {
+      margin: 0 0 10px;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin: 5px 0;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #f04e4e;
+      color: white;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" class="app">
+    <div class="header">
+      <h1>Hey Domlai, Good Afternoon!</h1>
+      <p>Search Gift, Customize Pro</p>
+    
+      <div class="cart-button"  @click="goToCart()">🛒 ({{ cart.length }})</div>
+    </div>
+
+    <div class="search">
+      <input type="text" placeholder="Search products...">
+      <button>Search</button>
+    </div>
+
+    <div class="categories">
+      <button>All Categories</button>
+      <button>Best Seller</button>
+      <button>New Arrivals</button>
+      <button>Offers</button>
+    </div>
+
+    <h3>Best Seller of the Month</h3>
+    <div class="products">
+      <div class="product" v-for="product in products" :key="product.id">
+        <a :href="'product-detail.html?id=' + product.id">
+          <img :src="product.image" alt="Product Image">
+        </a>
+        <div class="product-name">{{ product.name }}</div>
+        <div class="product-price">$ {{ product.price.toFixed(2) }}</div>
+        <button @click="addToCart(product)">Add to Cart</button>
+      </div>
+    </div>
+    
+
+    <!-- <div class="cart" v-if="cart.length > 0">
+      <h3>Cart</h3>
+      <div v-for="item in cart" :key="item.id" class="cart-item">
+        <span>{{ item.name }} x {{ item.quantity }}</span>
+        <span>$ {{ (item.price * item.quantity).toFixed(2) }}</span>
+      </div>
+      <div style="margin-top: 10px; font-weight: bold;">
+        Total: $ {{ cartTotal.toFixed(2) }}
+      </div>
+    </div> -->
+
+    <div class="footer">
+      <p>Contact us for customize product</p>
+      <p>Tel: 096 270 270</p>
+    </div>
+  </div>
+
+  <!-- <script>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          products: [
+            { id: 1, name: 'Fish Keychain', price: 1.00, image: './img/IMG_3067.JPG' },
+            { id: 2, name: 'Hand Bag', price: 5.00, image: 'https://via.placeholder.com/100' },
+            { id: 3, name: 'Krama', price: 1.00, image: 'https://via.placeholder.com/100' },
+            { id: 4, name: 'Cup Holder', price: 1.00, image: 'https://via.placeholder.com/100' },
+            { id: 5, name: 'Cross Body Bag', price: 6.00, image: 'https://via.placeholder.com/100' },
+          ],
+          cart: []
+        };
+      },
+      methods: {
+        addToCart(product) {
+          const existingItem = this.cart.find(item => item.id === product.id);
+          if (existingItem) {
+            existingItem.quantity++;
+          } else {
+            this.cart.push({ ...product, quantity: 1 });
+          }
+        }
+      },
+      computed: {
+        cartTotal() {
+          return this.cart.reduce((total, item) => total + item.price * item.quantity, 0);
+        }
+      }
+    }).mount('#app');
+  </script> -->
+
+  <script>
+    const { createApp } = Vue;
+  
+    const sharedData = {
+      products: [
+        { id: 1, name: 'Fish Keychain', price: 1.00, image: './img/IMG_3067.JPG' },
+        { id: 2, name: 'Hand Bag', price: 5.00, image: 'https://via.placeholder.com/100' },
+        { id: 3, name: 'Krama', price: 1.00, image: 'https://via.placeholder.com/100' },
+        { id: 4, name: 'Cup Holder', price: 1.00, image: 'https://via.placeholder.com/100' },
+        { id: 5, name: 'Cross Body Bag', price: 6.00, image: 'https://via.placeholder.com/100' },
+      ],
+      cart: JSON.parse(localStorage.getItem('cart')) || [] // Load cart from localStorage
+    };
+  
+    createApp({
+      data() {
+        return sharedData;
+      },
+      methods: {
+        addToCart(product) {
+          const existingItem = this.cart.find(item => item.id === product.id);
+          if (existingItem) {
+            existingItem.quantity++;
+          } else {
+            this.cart.push({ ...product, quantity: 1 });
+          }
+          localStorage.setItem('cart', JSON.stringify(this.cart)); // Save cart to localStorage
+          alert(`${product.name} added to cart!`);
+        },
+        goToCart() {
+          window.location.href = 'cart.html';
+        }
+      }
+    }).mount('#app');
+  </script>
+  
+  
+</body>
+</html>
