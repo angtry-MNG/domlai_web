@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f5e7e8;
+    }
+
+    .login-container {
+      max-width: 400px;
+      width: 100%;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #888;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+      color: #666;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      font-size: 0.9rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-group a {
+      font-size: 0.8rem;
+      color: #f57c00;
+      text-decoration: none;
+      float: right;
+      margin-top: 5px;
+    }
+
+    .form-group a:hover {
+      text-decoration: underline;
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 12px;
+      background-color: #6c63ff;
+      color: #fff;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .login-button:hover {
+      background-color: #5a52d1;
+    }
+
+    .signup-text {
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
+
+    .signup-text a {
+      color: #f57c00;
+      text-decoration: none;
+    }
+
+    .signup-text a:hover {
+      text-decoration: underline;
+    }
+
+    .divider {
+      margin: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: #ccc;
+      margin: 0 10px;
+    }
+
+    .google-login {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+      background-color: #fff;
+    }
+
+    .google-login img {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+    }
+
+    .google-login:hover {
+      background-color: #f5f5f5;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>Sign In</h1>
+    <p>Enter your email and password</p>
+
+    <form action="/dashboard" method="POST">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        <a href="/forgot-password">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="login-button">LOGIN</button>
+    </form>
+
+    <div class="signup-text">
+      Don’t have an account? <a href="/signup">Sign up</a>
+    </div>
+
+    <div class="divider">Sign In with</div>
+
+    <div class="google-login">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" alt="Google Logo">
+      Sign In with Google
+    </div>
+  </div>
+</body>
+</html>

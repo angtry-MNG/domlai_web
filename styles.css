@@ -1,10 +1,7 @@
 
 //Home page
 
-
-  
-
-//product detail
+<style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -20,11 +17,225 @@
     .header {
       text-align: center;
       padding: 10px;
-      background-color: #f04e4e;
-      color: #fff;
+      background-color: #A50000;
+      color: #ffffff;
       border-radius: 10px;
       margin-bottom: 20px;
     }
+    .search {
+      display: flex;
+      margin: 10px 0;
+    }
+    .search input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px 0 0 5px;
+    }
+    .search button {
+      padding: 10px;
+      background-color: #f04e4e;
+      color: #fff;
+      border: none;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+    }
+    .categories {
+      display: flex;
+      overflow-x: auto;
+      margin: 10px 0;
+    }
+    .categories button {
+      margin: 0 5px;
+      padding: 10px;
+      background-color: #f04e4e;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .product {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #fff;
+      margin: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .product img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .product-name {
+      font-size: 14px;
+      font-weight: bold;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .product-price {
+      color: #888;
+      margin: 5px 0;
+    }
+    .product button {
+      padding: 8px 12px;
+      background-color: #f04e4e;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .cart {
+      margin-top: 20px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .cart h3 {
+      margin: 0 0 10px;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin: 5px 0;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #f04e4e;
+      color: white;
+      border-radius: 10px;
+    }
+    .cart-button {
+  position: relative;
+  display: inline-block;
+  font-size: 24px; /* Adjust icon size */
+  cursor: pointer;
+}
+
+.cart-icon {
+  display: inline-block;
+  color: #ffffff; /* Cart icon color */
+}
+
+.cart-count {
+ 
+  top: -8px; /* Position the badge above the icon */
+  right: -8px; /* Position the badge to the right of the icon */
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+/* Bottom menu container */
+
+/* Bottom menu container */
+.bottom-menu {
+  position: sticky; /* Sticky at the bottom of the app */
+  bottom: 0;
+  left: 0;
+  width: 100%; /* Fit to app container */
+  height: 60px; /* Fixed height */
+  background-color: #a50000; /* Menu background color */
+  display: flex; /* Use flexbox for alignment */
+  justify-content: space-around; /* Even spacing between menu items */
+  align-items: center; /* Vertically center items */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Add a shadow */
+  z-index: 1000; /* Ensure it's above other elements */
+  border-radius: 10px;
+}
+
+/* Menu items */
+.menu-item {
+  flex: none; /* Prevent flex resizing */
+  width: 80px; /* Fixed width for each item */
+  height: 60px; /* Match the height of the bar */
+  color: white; /* Icon and text color */
+  text-decoration: none;
+  font-size: 24px; /* Fixed icon size */
+  display: flex; /* Use flex to center the icon */
+  align-items: center;
+  justify-content: center;
+  text-align: center; /* Center horizontally */
+}
+
+
+
+.typing-animation {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: Arial, sans-serif;
+    font-size: 2rem; /* Adjust the font size as needed */
+    font-weight: bold;
+    border-right: 3px solid #ffffff; /* Creates a blinking cursor */
+    animation: typing 4s steps(22, end), blink-caret 0.6s step-end infinite;
+  }
+  
+  /* Typing effect */
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+  
+  /* Blinking cursor effect */
+  @keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: rgb(255, 255, 255); }
+  }
+
+  /* Logo styles */
+.logo {
+  display: inline-block;
+  opacity: 0; /* Hidden initially */
+  animation: fade-in 0.5s forwards; /* Fade-in effect */
+  animation-delay: 4s; /* Delays after typing animation */
+}
+
+.logo img {
+  width: 30px; /* Adjust size as needed */
+  height: 30px;
+  margin-left: 10px;
+}
+
+/* Fade-in animation for the logo */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+  </style>
+  
+
+//product detail
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+    .app {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 10px;
+      background-color: #fff;
+    }
+   
     .categories {
       display: flex;
       justify-content: space-between;
