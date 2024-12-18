@@ -15,56 +15,64 @@
     <div class="header">
       <h1>Cart</h1>
     </div>
-    <div v-if="cart.length > 0">
-        <div class="cart-item" v-for="item in cart" :key="item.id">
-          <img :src="item.image" alt="Product Image">
-          <div>
-            <strong>{{ item.name }}</strong><br>
-            ${{ item.price.toFixed(2) }} x {{ item.quantity }}
-          </div>
-          <div>
-            <button @click="decreaseQuantity(item)">-</button>
-            <button @click="increaseQuantity(item)">+</button>
-          </div>
+
+    <!-- Empty Cart Message -->
+    <div v-if="cart.length === 0" class="empty-cart">
+      <p>Your cart is empty!</p>
+    </div>
+
+    <!-- Cart Items -->
+    <div v-else>
+      <div class="cart-item" v-for="item in cart" :key="item.id">
+        <img :src="item.image" alt="Product Image">
+        <div>
+          <strong>{{ item.name }}</strong><br>
+          ${{ item.price.toFixed(2) }} x {{ item.quantity }}
+        </div>
+        <div>
+          <button @click="decreaseQuantity(item)">-</button>
+          <button @click="increaseQuantity(item)">+</button>
         </div>
       </div>
-      
 
+      <!-- Price Details -->
       <div class="price-details">
         <p>Total Product Price: ${{ cartTotal.toFixed(2) }}</p>
         <p>Delivery Cost: $2.00</p>
         <p><strong>Order Total: ${{ (cartTotal + 2).toFixed(2) }}</strong></p>
       </div>
 
-      <!-- <button class="checkout-button" onclick="window.location.href='checkout.html'">Check Out</button> -->
+      <!-- Checkout Button -->
       <button 
-      class="checkout-button" 
-      :disabled="cart.length === 0" 
-      @click="goToCheckout">
-      Check Out
-    </button>
-    
-
+        class="checkout-button" 
+        :disabled="cart.length === 0" 
+        @click="goToCheckout">
+        Check Out
+      </button>
     </div>
   </div>
 
   <script>
     const { createApp } = Vue;
-  
+
     createApp({
       data() {
         return {
           cart: JSON.parse(localStorage.getItem('cart')) || [] // Load cart from localStorage
         };
       },
+      mounted() {
+        // Alert if cart is empty when the page loads
+        if (this.cart.length === 0) {
+          
+        }
+      },
       methods: {
         goToCheckout() {
-    if (this.cart.length > 0) {
-      window.location.href = 'checkout.html'; // Navigate to the checkout page
-    } else {
-      alert('Your cart is empty!'); // Optional: Inform the user
-    }
-  },
+          if (this.cart.length > 0) {
+            window.location.href = 'checkout.html'; // Navigate to the checkout page
+          } 
+        },
         increaseQuantity(item) {
           item.quantity++;
           this.saveCart();
@@ -88,6 +96,5 @@
       }
     }).mount('#app');
   </script>
-  
 </body>
 </html>
